@@ -35,7 +35,7 @@ def obtener_datos_documento(resultado):
         return None
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})  # Habilitar CORS para todas las rutas bajo '/api'
+CORS(app, resources={r"/*": {"origins": "*"}})  # Habilitar CORS para todas las rutas bajo '/api'
 
 @app.route('/api/consulta_rnc', methods=['POST'])
 def api_consulta_rnc():

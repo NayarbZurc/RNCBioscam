@@ -14,3 +14,4 @@ Pillow==9.5.0
 gunicorn
 flask
 flask-cors
+python-dotenv
