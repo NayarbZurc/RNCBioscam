@@ -35,7 +35,7 @@ def obtener_datos_documento(resultado):
         return None
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})  # Habilitar CORS para todas las rutas bajo '/api'
 
 @app.route('/api/consulta_rnc', methods=['POST'])
 def api_consulta_rnc():
@@ -68,9 +68,11 @@ def api_consulta_rnc():
             return jsonify({'error': f"El documento con ID '{resultado}' no existe."}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     # Establecer la variable de entorno FLASK_ENV en "production"
-    os.environ['FLASK_ENV'] = 'production'# Iniciar la aplicación con Gunicorn
+    os.environ['FLASK_ENV'] = 'production'
+    # Iniciar la aplicación con Gunicorn
     host = '0.0.0.0'
     port = int(os.environ.get('PORT', 8000))
     workers = 4  # Puedes ajustar este valor según tus necesidades
