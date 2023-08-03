@@ -3,7 +3,7 @@ from controller.RNC import consulta_rnc
 from firebase_admin import credentials, firestore
 from flask import Flask, request, jsonify
 import os
-import json  # Importar el módulo json
+import json
 
 # Inicializar Firebase
 cred = credentials.Certificate('controller/appbioscam-firebase-adminsdk-cqiv8-4b79627210.json')
@@ -67,4 +67,4 @@ def api_consulta_rnc():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    pass
