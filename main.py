@@ -61,15 +61,15 @@ def api_consulta_rnc():
         os.remove(imagen_path)
 
         # Consultar la base de datos para obtener los campos del documento
-        document_data = obtener_datos_documento(resultado)
+        #document_data = obtener_datos_documento(resultado)
 
         # Preparar el resultado a devolver como JSON
-        if document_data:
+        #if document_data:
             # Convertir los datos del documento a formato JSON
-            resultado_json = json.dumps(document_data)
-            return resultado_json, 200
-        else:
-            return jsonify({'error': f"El documento con ID '{resultado}' no existe."}), 404
+         #   resultado_json = json.dumps(document_data)
+        return resultado, 200
+        #else:
+        #    return jsonify({'error': f"El documento con ID '{resultado}' no existe."}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
