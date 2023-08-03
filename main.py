@@ -67,4 +67,9 @@ def api_consulta_rnc():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 if __name__ == '__main__':
-    pass
+    # Establecer la variable de entorno FLASK_ENV en "production"
+    os.environ['FLASK_ENV'] = 'production'# Iniciar la aplicación con Gunicorn
+    host = '0.0.0.0'
+    port = int(os.environ.get('PORT', 8000))
+    workers = 4  # Puedes ajustar este valor según tus necesidades
+    app.run(host=host, port=port, threaded=True)
