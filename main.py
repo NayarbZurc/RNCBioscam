@@ -2,6 +2,7 @@ import firebase_admin
 from controller.RNC import consulta_rnc
 from firebase_admin import credentials, firestore
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import json
 
@@ -34,6 +35,7 @@ def obtener_datos_documento(resultado):
         return None
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/api/consulta_rnc', methods=['POST'])
 def api_consulta_rnc():
