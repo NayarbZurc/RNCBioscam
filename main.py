@@ -68,7 +68,7 @@ def api_consulta_rnc():
             return jsonify({'error': f"El documento con ID '{resultado}' no existe."}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
+    
 if __name__ == '__main__':
     # Establecer la variable de entorno FLASK_ENV en "production"
     os.environ['FLASK_ENV'] = 'production'
