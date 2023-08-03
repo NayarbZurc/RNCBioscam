@@ -14,11 +14,10 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # Función para consultar la base de datos y obtener los campos del documento
-
 def obtener_datos_documento(resultado):
     try:
         # Realizar una consulta para obtener el documento con el campo que contiene el ID conocido
-        consulta = db.collection('animales').filter('id_especie', '==', resultado).limit(1).get()
+        consulta = db.collection('animales').where('id_especie', '==', resultado).limit(1).get()
 
         # Verificar si se encontró un documento que cumpla con la consulta
         if not consulta:
