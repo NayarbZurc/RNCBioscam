@@ -15,16 +15,10 @@ db = firestore.client()
 
 # Función para consultar la base de datos y obtener los campos del documento
 
-
-
-app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})  # Habilitar CORS para todas las rutas bajo '/api'
-
-@app.route('/api/get_animal', methods=['GET'])
-def obtener_datos_documento(id):
+def obtener_datos_documento(resultado):
     try:
         # Realizar una consulta para obtener el documento con el campo que contiene el ID conocido
-        consulta = db.collection('animales').filter('id_especie', '==', id).limit(1).get()
+        consulta = db.collection('animales').filter('id_especie', '==', resultado).limit(1).get()
 
         # Verificar si se encontró un documento que cumpla con la consulta
         if not consulta:
@@ -40,7 +34,10 @@ def obtener_datos_documento(id):
     except Exception as e:
         print('Error al consultar la base de datos:', str(e))
         return None
-    
+
+app = Flask(__name__)
+CORS(app, resources={r"/api/*": {"origins": "*"}})  # Habilitar CORS para todas las rutas bajo '/api'
+
 @app.route('/api/consulta_rnc', methods=['POST'])
 def api_consulta_rnc():
     try:
@@ -61,15 +58,15 @@ def api_consulta_rnc():
         os.remove(imagen_path)
 
         # Consultar la base de datos para obtener los campos del documento
-        #document_data = obtener_datos_documento(resultado)
+        document_data = obtener_datos_documento(resultado)
 
         # Preparar el resultado a devolver como JSON
-        #if document_data:
+        if document_data:
             # Convertir los datos del documento a formato JSON
-         #   resultado_json = json.dumps(document_data)
-        return resultado, 200
-        #else:
-        #    return jsonify({'error': f"El documento con ID '{resultado}' no existe."}), 404
+            resultado_json = json.dumps(document_data)
+            return resultado_json, 200
+        else:
+            return jsonify({'error': f"El documento con ID '{resultado}' no existe."}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
